@@ -40,5 +40,5 @@ jobs:
       - name: Upload zip package as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: zip
-          path: *.zip
+          name: zip-package
+          path: remezex.zip
