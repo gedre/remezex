@@ -1,7 +1,6 @@
-% export the file to pdf format
-export("remezex.mlx");
-% run and export file to pdf format
-export("remezex_demo.mlx", Run=true);
+% export files to pdf format
+export("remezex.mlx",      OpenExportedFile=false, Run=false);
+export("remezex_demo.mlx", OpenExportedFile=false, Run=false);
 
 % build archive
 zip("remezex.zip", ["*.mlx", "*.pdf", "README.md", "LICENSE"]);
