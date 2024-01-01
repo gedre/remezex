@@ -1,3 +1,8 @@
 # local VS Code configuration
 .vscode
 
+# build artefacts
+*.pdf
+*.zip
+
+

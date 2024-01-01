@@ -1,7 +1,5 @@
 # This workflow builds the toolbox package and tests
-# - package installation
-# - running the demo
-# - package uninstallation
+# - package build
 # - package artifact upload
 
 name: Build and test
@@ -28,13 +26,19 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Sets up MATLAB on the GitHub Actions runner
       - name: Setup MATLAB
         uses: matlab-actions/setup-matlab@v1
 
-      - name: Run demo script
+      - name: Build the package
         uses: matlab-actions/run-command@v1
         with:
-          command: remezex_demo
+          command: build
+
+      - name: Upload zip package as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zip
+          path: *.zip
