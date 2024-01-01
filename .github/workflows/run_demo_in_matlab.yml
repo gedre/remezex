@@ -37,8 +37,13 @@ jobs:
         with:
           command: build
 
-      - name: Upload zip package as artifact
+      # this creates a zip package with the files given by path
+      - name: Upload package as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: zip-package
-          path: remezex.zip
+          name: remezex
+          path: |
+            ./*.mlx
+            ./*.html
+            README.md
+            LICENSE

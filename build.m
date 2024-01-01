@@ -10,6 +10,3 @@ if ispc
     export("remezex.mlx",      Format="html", OpenExportedFile=false, Run=false);
     export("remezex_demo.mlx", Format="html", OpenExportedFile=false, Run=false);
 end
-
-% build archive
-zip("remezex.zip", ["*.mlx", "*.html", "README.md", "LICENSE"]);
