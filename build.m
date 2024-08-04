@@ -3,7 +3,12 @@ opts = matlab.addons.toolbox.ToolboxOptions(pwd, "remezex");
 
 opts.ToolboxName  = "Remez Exchange";
 opts.ToolboxFiles = ["LICENSE", "README.md", "remezex.mlx", "remezex_demo.mlx"];
-opts.OutputFile   = "remezex.mltbx";
+GRF=getenv('GITHUB_REF_NAME');
+if isempty(GRF)
+    opts.OutputFile   = "remezex.mltbx";
+else
+    opts.OutputFile   = "remezex-" + GRF + ".mltbx";
+end
 opts.AuthorName   = "Georg Drenkhahn";
 opts.Summary      = "Polynomial function approximation with the Remez exchange algorithm";
 opts.Description  = "The Remez exchange algorithm approximates a 1-dimensional real-valued function with a polynomial by minimizing the maximal absolute difference.";

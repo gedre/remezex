@@ -1,8 +1,9 @@
-# This workflow builds the toolbox package and tests
+# This workflow contains ...
+# - test of the demo script
 # - package build
 # - package artifact upload
 
-name: Build and test
+name: Test and build
 
 # Controls when the action will run.
 # Triggers the workflow on all push events
@@ -15,8 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  # This workflow contains 2 jobs: "test" and "build"
-  test_job:
+  test_and_build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -36,16 +36,6 @@ jobs:
         with:
           command: test
 
-  build_job:
-    # test needs to be successful
-    needs: test_job
-    # only build for pushed tags
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
       # run matlab script and create the .mltbx file
       - name: Build the package
         uses: matlab-actions/run-command@v2
@@ -57,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: remezex
-          path: remezex.mltbx
+          path: remezex*.mltbx
