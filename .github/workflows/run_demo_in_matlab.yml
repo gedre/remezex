@@ -38,12 +38,12 @@ jobs:
           command: build
 
       # this creates a zip package with the files given by path
+      # exclude .git*, build.m
       - name: Upload package as artifact
         uses: actions/upload-artifact@v4
         with:
           name: remezex
           path: |
             ./*.mlx
-            ./*.html
             README.md
             LICENSE
