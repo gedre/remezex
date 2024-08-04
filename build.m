@@ -1,13 +1,15 @@
-% execute the demo
-remezex_demo;
-close all;
+% configure package creation
+opts = matlab.addons.toolbox.ToolboxOptions(pwd, "remezex");
 
-%% export mlx files
-% the export() command causes an error in GitHub Actions running in an Linux environment:
-%   "Error using matlab.internal.cef.webwindow, DISPLAY environment variable must be set to a valid X11 display."
-% Deactivated for now.
-%if ispc
-%    cd("html");
-%    export("../remezex.mlx",      Format="html", OpenExportedFile=false, Run=false);
-%    export("../remezex_demo.mlx", Format="html", OpenExportedFile=false, Run=false);
-%end
+opts.ToolboxName  = "Remez Exchange";
+opts.ToolboxFiles = ["LICENSE", "README.md", "remezex.mlx", "remezex_demo.mlx"];
+opts.OutputFile   = "remezex.mltbx";
+opts.AuthorName   = "Georg Drenkhahn";
+opts.Summary      = "Polynomial function approximation with the Remez exchange algorithm";
+opts.Description  = "The Remez exchange algorithm approximates a 1-dimensional real-valued function with a polynomial by minimizing the maximal absolute difference.";
+opts.MinimumMatlabRelease       = "R2019b"; % because of arguments keyword
+opts.ToolboxGettingStartedGuide = "remezex_demo.mlx";
+opts.ToolboxImageFile           = "remezex_logo.png"; % 220 x 165 px = 4:3
+
+% create the package .mltbx file
+matlab.addons.toolbox.packageToolbox(opts);

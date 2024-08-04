@@ -5,20 +5,18 @@
 name: Build and test
 
 # Controls when the action will run.
+# Triggers the workflow on all push events
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+  
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+
+  # This workflow contains 2 jobs: "test" and "build"
+  test_job:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -32,18 +30,31 @@ jobs:
       - name: Setup MATLAB
         uses: matlab-actions/setup-matlab@v2
 
+      # run matlab script and execute demo as test
+      - name: Test the execution of the demo script
+        uses: matlab-actions/run-command@v2
+        with:
+          command: test
+
+  build_job:
+    # test needs to be successful
+    needs: test_job
+    # only build for pushed tags
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # run matlab script and create the .mltbx file
       - name: Build the package
         uses: matlab-actions/run-command@v2
         with:
           command: build
 
-      # this creates a zip package with the files given by path
-      # exclude .git*, build.m
+      # creates artifact from package
       - name: Upload package as artifact
         uses: actions/upload-artifact@v4
         with:
           name: remezex
-          path: |
-            ./*.mlx
-            README.md
-            LICENSE
+          path: remezex.mltbx
