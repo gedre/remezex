@@ -42,9 +42,12 @@ jobs:
         with:
           command: build
 
-      # creates artifact from package
+      # add the .mltbx to a zip archive and upload this artifact. Note#1: there is currently no way to prevent the
+      # double compression. For package releases, the .mltbx needs to be extracted from the zip file and added manually
+      # to the GitHub release. Note#2: github.ref_name contains either the tag name (e.g. 'v1.2') or the branch name
+      # ('main')
       - name: Upload package as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: remezex
+          name: remezex-${{ github.ref_name }}
           path: remezex*.mltbx
