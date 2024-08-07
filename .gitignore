@@ -1,6 +1,9 @@
 # local VS Code configuration
 .vscode
 
+# storage for related but unimportant stuff
+Misc
+
 # build artefacts
 *.pdf
 *.zip
